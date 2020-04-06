@@ -12,9 +12,9 @@ const PORT = process.env.PORT || 5000;
 io.on('connection', (socket) => {
     console.log('There is a new connection');
 
-   socket.on('disconnect', () => {
+    socket.on('disconnect', () => {
         console.log('User had left!!');
-   }) 
+    }) 
 });
 
 app.use(router);
