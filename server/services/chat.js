@@ -1,5 +1,6 @@
 const { addUser, removeUser, getUser } = require('./users.js');
 const { isMessageStockCommand } = require('./message.js');
+const { putConsultStockCommand } = require('./stock');
 const JOIN_EVENT = 'join';
 const SEND_MESSAGE_EVENT = 'sendMessage';
 
@@ -27,9 +28,12 @@ class ChatConnector {
 
             if(user) {
                 if(isMessageStockCommand(message)){
-                    console.log("IT IS A STOCK COMMANDS")
+                    console.log("IT IS A STOCK COMMAND")
+                    putConsultStockCommand(message, user);
+                    console.log("Put consult stock command")
+                } else {
+                    this.io.to(user.room).emit('message', { user: user.name, text: message});
                 }
-                this.io.to(user.room).emit('message', { user: user.name, text: message});
             }
     
             callback();

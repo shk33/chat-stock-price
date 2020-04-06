@@ -4,16 +4,19 @@ const { CONN_URL } = require('../config/rabbitmq')
 let ch = null;
 
 amqp.connect(CONN_URL, function (err, conn) {
-   conn.createChannel(function (err, channel) {
-      ch = channel;
-   });
+    conn.createChannel(function (err, channel) {
+        ch = channel;
+    });
 });
 
-export const publishToQueue = async (queueName, data) => {
-   ch.sendToQueue(queueName, new Buffer(data));
+const publishToQueue = async (queueName, data) => {
+    console.log(JSON.stringify(data))
+    ch.sendToQueue(queueName, Buffer.from(JSON.stringify(data)));
 }
 
 process.on('exit', (code) => {
-   ch.close();
-   console.log(`Closing rabbitmq channel`);
+    ch.close();
+    console.log(`Closing rabbitmq channel`);
 });
+
+module.exports = { publishToQueue };
