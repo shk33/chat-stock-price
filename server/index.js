@@ -7,11 +7,16 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 const ChatConnector = require('./services/chat');
+const SocketAccesor = require('./services/socket_accesor');
+const { init:initStockWorker } = require('./worker/stock-worker');
 
 const PORT = process.env.PORT || 5000;
 
 const chatConnector = new ChatConnector(io);
+const socketAccesor = new SocketAccesor(io).getInstance();
+
 io.on('connection', chatConnector.onChatConnection());
+initStockWorker();
 
 app.use(router);
 

@@ -1,3 +1,4 @@
+const SocketAccesor = require('./socket_accesor');
 const STOCK_COMMAND = '/stock=';
 
 const isMessageStockCommand = (message) => {
@@ -15,4 +16,14 @@ const getStockIdFromMessage = (message) => {
     return parts[1];
 }
 
-module.exports = { isMessageStockCommand, getStockIdFromMessage }
+const publishMessage = (message, user) => {
+    const socketAccesor = new SocketAccesor().getInstance();
+    socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});
+};
+
+const publishAndSaveMessage = (message, user) => {
+    const socketAccesor = new SocketAccesor().getInstance();
+    socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});
+};
+
+module.exports = { isMessageStockCommand, getStockIdFromMessage, publishMessage, publishAndSaveMessage }

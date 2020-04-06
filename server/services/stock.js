@@ -9,7 +9,7 @@ const createConsultUrl = (stockId) => {
     return `${CONSULTING_STOCK_URL}/q/l/?s=${stockId}&f=sd2t2ohlcv&h&e=csv`;
 }
 
-const getStockPriceFromCsvString = (csvString) => {
+const getStockInfoFromCsvString = (csvString) => {
     const parsed = parseCSVfromString(csvString);
     const symbols = parsed[0];
     const values = parsed[1];
@@ -17,11 +17,14 @@ const getStockPriceFromCsvString = (csvString) => {
     const indexOfOpen = symbols.indexOf('Open');
     const openValue = values[indexOfOpen];
 
+    const indexOfSymbol = symbols.indexOf('Symbol');
+    const symbolValue = values[indexOfSymbol];
+
     if(openValue === 'N/D'){
         throw new Error();
     }
 
-    return openValue;
+    return {price: openValue, symbol: symbolValue };
 };
 
 const putConsultStockCommand = (message, user) => {
@@ -34,8 +37,8 @@ const consultStock = async(stockId) => {
     const url = createConsultUrl(stockId);
     try {
         const result = await axios.get(url);
-        getStockPriceFromCsvString(result.data)
-        return result;
+        const price = getStockInfoFromCsvString(result.data)
+        return price;
     } catch (error) {
         console.log(error)
         throw new Error('Failed to get stock price');

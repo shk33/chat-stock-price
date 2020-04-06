@@ -30,7 +30,6 @@ class ChatConnector {
                 if(isMessageStockCommand(message)){
                     console.log("IT IS A STOCK COMMAND")
                     putConsultStockCommand(message, user);
-                    console.log("Put consult stock command")
                 } else {
                     this.io.to(user.room).emit('message', { user: user.name, text: message});
                 }
