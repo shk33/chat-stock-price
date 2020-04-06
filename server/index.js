@@ -6,11 +6,12 @@ const router = require('./router');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-const { onChatConnectionHandler } = require('./services/chat');
+const ChatConnector = require('./services/chat');
 
 const PORT = process.env.PORT || 5000;
 
-io.on('connection', onChatConnectionHandler);
+const chatConnector = new ChatConnector(io);
+io.on('connection', chatConnector.onChatConnection());
 
 app.use(router);
 
