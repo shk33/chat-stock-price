@@ -33,6 +33,7 @@ class ChatConnector {
         
         socket.on('disconnect', () => {
             console.log('User had left!!');
+            const user = removeUser(socket.id);
         }) 
     };
 }
