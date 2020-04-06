@@ -1,5 +1,5 @@
-import amqp from 'amqplib/callback_api';
-const CONN_URL = 'amqp://wdkddtqi:dCKERUaoeOlsJ8xgZDjwrZEXogbBkMnr@shark.rmq.cloudamqp.com/wdkddtqi';
+const amqp = require('amqplib/callback_api');
+const { CONN_URL } = require('../config/rabbitmq')
 
 let ch = null;
 

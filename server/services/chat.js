@@ -1,4 +1,4 @@
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+const { addUser, removeUser, getUser } = require('./users.js');
 const { isMessageStockCommand } = require('./message.js');
 const JOIN_EVENT = 'join';
 const SEND_MESSAGE_EVENT = 'sendMessage';
