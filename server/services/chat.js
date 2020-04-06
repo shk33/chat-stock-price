@@ -3,12 +3,9 @@ const { isMessageStockCommand } = require('./message.js');
 const { putConsultStockCommand } = require('./stock');
 const JOIN_EVENT = 'join';
 const SEND_MESSAGE_EVENT = 'sendMessage';
+const SocketAccesor = require('./socket_accesor');
 
 class ChatConnector {
-    constructor(ioInstance) {
-        this.io = ioInstance;
-    }
-
     onChatConnection = () => (socket) => {
         console.log('There is a new connection');
     
@@ -31,7 +28,8 @@ class ChatConnector {
                     console.log("IT IS A STOCK COMMAND")
                     putConsultStockCommand(message, user);
                 } else {
-                    this.io.to(user.room).emit('message', { user: user.name, text: message});
+                    const socketAccesor = new SocketAccesor().getInstance();
+                    socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});
                 }
             }
     

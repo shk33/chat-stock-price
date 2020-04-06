@@ -12,7 +12,7 @@ const { init:initStockWorker } = require('./worker/stock-worker');
 
 const PORT = process.env.PORT || 5000;
 
-const chatConnector = new ChatConnector(io);
+const chatConnector = new ChatConnector();
 const socketAccesor = new SocketAccesor(io).getInstance();
 
 io.on('connection', chatConnector.onChatConnection());
