@@ -9,7 +9,7 @@ const createConsultUrl = (stockId) => {
 
 const consultStockPrice = (message, user) => {
     const stockId = getStockIdFromMessage(message);
-    const consultUrl = createConsultUrl(stockId);
+    const url = createConsultUrl(stockId);
     publishToQueue(CONSULTING_STOCK_QUEUE, {url, user})
 };
 
