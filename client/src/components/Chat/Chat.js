@@ -60,7 +60,6 @@ const Chat = ({ location }) => {
                 <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
         </div>
-        
     )
 }
 
