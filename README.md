@@ -4,7 +4,8 @@
 A simple chat application using socket.io for real time communication, using Mongo for storing the messages.
 The users can connect to different rooms.
 The chat accepts a consulting stock price command through `/stock=STOCK_SYMBOL` where `STOCK_SYMBOL` is the stock code from `stooq.com`; e.g. aapl.us
-Those requests for consulting the priced are published and consumed via Rabbit MQ Queue.
+
+Those requests for consulting the price are published and consumed via Rabbit MQ Queue.
 
 You can join with any name and any chat room.
 E.g. name: test1, rooom: room1
