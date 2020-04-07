@@ -1,5 +1,5 @@
 const { addUser, removeUser, getUser } = require('./users.js');
-const { isMessageStockCommand } = require('./message.js');
+const { isMessageStockCommand, saveMessage } = require('./message.js');
 const { putConsultStockCommand } = require('./stock');
 const JOIN_EVENT = 'join';
 const SEND_MESSAGE_EVENT = 'sendMessage';
@@ -29,7 +29,12 @@ class ChatConnector {
                     putConsultStockCommand(message, user);
                 } else {
                     const socketAccesor = new SocketAccesor().getInstance();
-                    socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});
+                    console.log(user)
+                    saveMessage(message, user.name, user.room)
+                    .then(() => {
+                        socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});
+                    })
+                    .catch(err => console.log(err))
                 }
             }
     

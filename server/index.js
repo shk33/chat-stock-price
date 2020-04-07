@@ -9,12 +9,14 @@ const io = socketio(server);
 const ChatConnector = require('./services/chat');
 const SocketAccesor = require('./services/socket_accesor');
 const { init:initStockWorker } = require('./worker/stock-worker');
+const mongo = require('./database/mongo');
 
 const PORT = process.env.PORT || 5000;
 
 const chatConnector = new ChatConnector();
 const socketAccesor = new SocketAccesor(io).getInstance();
 
+mongo.connect();
 io.on('connection', chatConnector.onChatConnection());
 initStockWorker();
 

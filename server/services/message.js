@@ -1,4 +1,6 @@
 const SocketAccesor = require('./socket_accesor');
+const { Message } = require('../database/mongo_schema');
+const mongoose = require('mongoose');
 const STOCK_COMMAND = '/stock=';
 
 const isMessageStockCommand = (message) => {
@@ -26,4 +28,15 @@ const publishAndSaveMessage = (message, user) => {
     socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});
 };
 
-module.exports = { isMessageStockCommand, getStockIdFromMessage, publishMessage, publishAndSaveMessage }
+const saveMessage = async (message, user, room) => {
+    const msg = new Message({
+        _id: new mongoose.Types.ObjectId(),
+        text: message,
+        user,
+        room,
+    });
+    await msg.save();
+    return msg;
+}
+
+module.exports = { isMessageStockCommand, getStockIdFromMessage, publishMessage, publishAndSaveMessage, saveMessage }

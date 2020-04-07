@@ -20,7 +20,7 @@ const init = () => {
                     publishAndSaveMessage(`${symbol} quote is ${price} per share`, payload.user);
                 })
                 .catch(error => {
-                    publishMessage(`Failed to get ${payload.stockId} stock info. Could be invalid sotck symbol or service is unavailable.`, payload.user);
+                    publishMessage(`Failed to get ${payload.stockId} stock info. Could be invalid stock symbol or service is unavailable.`, payload.user);
                 });
     
                 },{ noAck: true }

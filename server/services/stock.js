@@ -1,7 +1,7 @@
 const CONSULTING_STOCK_URL = 'https://stooq.com';
 const { getStockIdFromMessage } = require('./message');
 const { CONSULTING_STOCK_QUEUE } = require('../config/rabbitmq');
-const  { publishToQueue } = require('./mqservice');
+const  { publishToQueue } = require('./mq_service');
 const { parseCSVfromString } = require('../helpers/csv');
 const axios = require('axios');
 
