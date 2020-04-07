@@ -29,7 +29,6 @@ class ChatConnector {
                     putConsultStockCommand(message, user);
                 } else {
                     const socketAccesor = new SocketAccesor().getInstance();
-                    console.log(user)
                     saveMessage(message, user.name, user.room)
                     .then(() => {
                         socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});

@@ -18,14 +18,15 @@ const getStockIdFromMessage = (message) => {
     return parts[1];
 }
 
-const publishMessage = (message, user) => {
+const publishMessage = async (message, user) => {
     const socketAccesor = new SocketAccesor().getInstance();
     socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});
 };
 
-const publishAndSaveMessage = (message, user) => {
+const publishAndSaveMessage = async (message, user) => {
     const socketAccesor = new SocketAccesor().getInstance();
     socketAccesor.getSocktetInstance().to(user.room).emit('message', { user: user.name, text: message});
+    await saveMessage(message, user.name, user.room);
 };
 
 const saveMessage = async (message, user, room) => {
