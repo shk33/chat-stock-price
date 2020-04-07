@@ -10,7 +10,7 @@ Those requests for consulting the price are published and consumed via Rabbit MQ
 You can join with any name and any chat room.
 E.g. name: test1, rooom: room1
 
-There cannot be two users with the same name on the same room.
+There cannot be two users with the same name on the same room connect at the same time.
 If you join a room with already existing messages you can see the lastest 50 messages.
 
 ## Backend Folder Structure
