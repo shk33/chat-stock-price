@@ -15,7 +15,7 @@ const isMessageStockCommand = (message) => {
 
 const getStockIdFromMessage = (message) => {
     const parts = message.split(STOCK_COMMAND);
-    return parts[1];
+    return parts[1] || '';
 }
 
 const publishMessage = async (message, user) => {
