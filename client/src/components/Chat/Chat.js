@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 import Messages from '../Messages/Messages';
+import axios from 'axios';
 import './Chat.css';
 
 let socket;
@@ -14,6 +15,17 @@ const Chat = ({ location }) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = 'localhost:5000';
+    
+    useEffect(async () => {
+        const {room} = queryString.parse(location.search);
+        const fetchData = async () => {
+            const result = await axios(
+                `http://localhost:5000/messages/${room}`,
+            );
+            setMessages(result.data);
+        };
+        fetchData();
+    }, []);
     
     useEffect(() => {
         const {room, name} = queryString.parse(location.search);

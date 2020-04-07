@@ -2,6 +2,7 @@ const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
 const router = require('./router');
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +21,9 @@ mongo.connect();
 io.on('connection', chatConnector.onChatConnection());
 initStockWorker();
 
+app.use(cors({
+    origin: '*'
+}));
 app.use(router);
 
 server.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
